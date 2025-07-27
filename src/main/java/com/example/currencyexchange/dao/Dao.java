@@ -5,6 +5,6 @@ import java.util.List;
 public interface Dao<K,E> {
     boolean update(E e);
     List<E> findAll();
-    E save(E e);
+    E create(E e);
     boolean delete(K id);
 }
