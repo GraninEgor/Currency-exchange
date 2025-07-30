@@ -20,6 +20,10 @@ public class CurrencyDao implements Dao<Long, Currency>{
                                             SELECT id, code, full_name, sign
                                             FROM currencies
 """;
+    private final static String FIND_BY_CODE_SQL = """
+                                            SELECT * FROM currencies
+                                            WHERE code = ?
+""";
 
     @Override
     public Currency create(Currency currency) {
@@ -65,5 +69,25 @@ public class CurrencyDao implements Dao<Long, Currency>{
 
     public static CurrencyDao getInstance() {
         return INSTANCE;
+    }
+
+    public Currency findByCode(String code) {
+        try(var connection = ConnectionManager.open();
+            var statement = connection.prepareStatement(FIND_BY_CODE_SQL)) {
+            statement.setString(1, code);
+            var result = statement.executeQuery();
+            if (result.next()) {
+                return new Currency(
+                        result.getLong("id"),
+                        result.getString("code"),
+                        result.getString("full_name"),
+                        result.getString("sign")
+                );
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

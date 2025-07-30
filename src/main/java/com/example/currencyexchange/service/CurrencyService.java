@@ -18,4 +18,8 @@ public class CurrencyService {
     public List<Currency> findAll(){
         return currencyDao.findAll();
     }
+
+    public Currency findByCode(String code) {
+        return currencyDao.findByCode(code);
+    }
 }

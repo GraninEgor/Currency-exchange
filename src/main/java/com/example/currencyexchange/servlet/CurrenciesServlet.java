@@ -13,20 +13,18 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-@WebServlet("/currency/*")
-public class CurrencyServlet extends HttpServlet {
+@WebServlet("/currencies")
+public class CurrenciesServlet extends HttpServlet {
 
     private static final CurrencyService currencyService = CurrencyService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String code = req.getPathInfo().substring(1);
-            System.out.println(code);
             resp.setContentType("application/json");
             resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
-            Currency currency = currencyService.findByCode(code);
-            String json = JsonUtil.toJson(currency);
+            List<Currency> currencies = currencyService.findAll();
+            String json = JsonUtil.toJson(currencies);
             resp.getWriter().write(json);
         } catch (Exception e) {
             throw new RuntimeException(e);
