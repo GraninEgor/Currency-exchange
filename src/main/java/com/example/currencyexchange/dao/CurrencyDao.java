@@ -24,6 +24,11 @@ public class CurrencyDao implements Dao<Long, Currency>{
                                             SELECT * FROM currencies
                                             WHERE code = ?
 """;
+    private final static String DELETE_SQL = """
+                                            DELETE FROM currencies
+                                            WHERE id = ?
+""";
+
 
     @Override
     public Currency create(Currency currency) {
@@ -64,7 +69,16 @@ public class CurrencyDao implements Dao<Long, Currency>{
 
     @Override
     public boolean delete(Long id) {
-        return false;
+        try(var connection = ConnectionManager.open();
+            var statement = connection.prepareStatement(DELETE_SQL)) {
+            statement.setString(1,id.toString());
+            if (statement.executeUpdate() != 0) {
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static CurrencyDao getInstance() {

@@ -26,4 +26,9 @@ public class CurrencyService {
     public void create(Currency currency) {
         currencyDao.create(currency);
     }
+
+
+    public void delete(long id) {
+        currencyDao.delete(id);
+    }
 }

@@ -42,4 +42,14 @@ public class CurrenciesServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String id = req.getParameter("id");
+            currencyService.delete(Long.parseLong(id));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
