@@ -22,4 +22,8 @@ public class CurrencyService {
     public Currency findByCode(String code) {
         return currencyDao.findByCode(code);
     }
+
+    public void create(Currency currency) {
+        currencyDao.create(currency);
+    }
 }

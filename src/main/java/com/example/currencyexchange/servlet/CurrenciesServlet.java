@@ -30,4 +30,16 @@ public class CurrenciesServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String fullName = req.getParameter("code");
+            String code = req.getParameter("fullName");
+            String sign = req.getParameter("sign");
+            currencyService.create(new Currency(null,fullName,code,sign));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

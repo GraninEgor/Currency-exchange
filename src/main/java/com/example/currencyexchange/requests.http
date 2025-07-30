@@ -1,1 +1,10 @@
-GET http://localhost:8080/currency/USD
+POST http://localhost:8080/currencies
+Content-Type: application/x-www-form-urlencoded
+
+fullName = Japan_yen &
+code = JPY &
+sign = ¥
+
+
+###
+GET http://localhost:8080/currencies
