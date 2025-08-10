@@ -13,3 +13,7 @@ GET http://localhost:8080/currencies
 
 ###
 GET http://localhost:8080/exchangeRates
+
+###
+GET http://localhost:8080/exchangeRate/JPYUSD
+
