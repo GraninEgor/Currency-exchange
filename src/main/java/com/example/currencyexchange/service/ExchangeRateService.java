@@ -23,4 +23,8 @@ public class ExchangeRateService {
     public ExchangeRate findByCode(String baseCurrencyCode, String targetCurrencyCode) {
         return exchangeRateDAO.findByCode(baseCurrencyCode, targetCurrencyCode);
     }
+
+    public void create(ExchangeRate exchangeRate) {
+        exchangeRateDAO.create(exchangeRate);
+    }
 }

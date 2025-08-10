@@ -1,9 +1,9 @@
 POST http://localhost:8080/currencies
 Content-Type: application/x-www-form-urlencoded
 
-fullName = Japan_yen &
-code = JPY &
-sign = ¥
+fullName = Euro &
+code = EUR &
+sign = €
 
 
 ###
@@ -16,4 +16,12 @@ GET http://localhost:8080/exchangeRates
 
 ###
 GET http://localhost:8080/exchangeRate/JPYUSD
+
+###
+POST http://localhost:8080/exchangeRates
+Content-Type: application/x-www-form-urlencoded
+
+baseCurrencyCode = EUR &
+targetCurrencyCode = JPY &
+rate = 171.97
 

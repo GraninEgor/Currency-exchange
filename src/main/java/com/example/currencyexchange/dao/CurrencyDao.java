@@ -37,7 +37,7 @@ public class CurrencyDao implements Dao<Long, Currency>{
             statement.setString(1,currency.getCode());
             statement.setString(2,currency.getFullName());
             statement.setString(3,currency.getSign());
-            statement.executeUpdate();
+            System.out.println(statement.executeUpdate());
             return currency;
         } catch (SQLException e) {
             throw new RuntimeException(e);

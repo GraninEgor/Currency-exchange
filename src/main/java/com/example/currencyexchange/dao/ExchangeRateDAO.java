@@ -17,6 +17,11 @@ public class ExchangeRateDAO implements Dao<Long, ExchangeRate>{
         return INSTANCE;
     }
 
+    private final static String CREATE_SQL = """
+                                            INSERT INTO exchange_rates
+                                            (base_currency_id, target_currency_id, rate)
+                                            VALUES (?,?,?)
+""";
     private final static String FIND_ALL_SQL = """
                                             SELECT
                                                 e.id AS exchange_rate_id, e.base_currency_id, e.target_currency_id, e.rate,
@@ -73,7 +78,16 @@ public class ExchangeRateDAO implements Dao<Long, ExchangeRate>{
 
     @Override
     public ExchangeRate create(ExchangeRate exchangeRate) {
-        return null;
+        try(var connection = ConnectionManager.open();
+            var statement = connection.prepareStatement(CREATE_SQL)) {
+            statement.setLong(1,exchangeRate.getBaseCurrency().getId());
+            statement.setLong(2,exchangeRate.getTargetCurrency().getId());
+            statement.setBigDecimal(3,exchangeRate.getRate());
+            System.out.println(statement.executeUpdate());
+            return exchangeRate;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
