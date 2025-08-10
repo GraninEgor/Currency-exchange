@@ -32,22 +32,22 @@ public class CurrenciesServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String fullName = req.getParameter("code");
-            String code = req.getParameter("fullName");
-            String sign = req.getParameter("sign");
-            currencyService.create(new Currency(null,fullName,code,sign));
+            String id = req.getParameter("id");
+            currencyService.delete(Long.parseLong(id));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         try {
-            String id = req.getParameter("id");
-            currencyService.delete(Long.parseLong(id));
+            String fullName = req.getParameter("code");
+            String code = req.getParameter("fullName");
+            String sign = req.getParameter("sign");
+            currencyService.create(new Currency(null,fullName,code,sign));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
