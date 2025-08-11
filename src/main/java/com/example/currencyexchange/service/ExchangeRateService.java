@@ -1,9 +1,11 @@
 package com.example.currencyexchange.service;
 
 import com.example.currencyexchange.dao.ExchangeRateDAO;
+import com.example.currencyexchange.dto.ConvertedAmountDTO;
 import com.example.currencyexchange.entity.Currency;
 import com.example.currencyexchange.entity.ExchangeRate;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ExchangeRateService {
@@ -26,5 +28,23 @@ public class ExchangeRateService {
 
     public void create(ExchangeRate exchangeRate) {
         exchangeRateDAO.create(exchangeRate);
+    }
+
+    public ConvertedAmountDTO convert(String baseCurrencyCode, String targetCurrencyCode, BigDecimal amount) {
+        ExchangeRate exchangeRate = findByCode(baseCurrencyCode, targetCurrencyCode);
+        if(exchangeRate != null){
+            BigDecimal convertedAmount = exchangeRate.getRate().multiply(amount);
+            return new ConvertedAmountDTO(exchangeRate.getBaseCurrency(), exchangeRate.getTargetCurrency(), exchangeRate.getRate(), amount, convertedAmount);
+        }
+        else{
+            exchangeRate = findByCode(targetCurrencyCode, baseCurrencyCode);
+            if(exchangeRate != null){
+
+            }
+            else{
+
+            }
+        }
+        return null;
     }
 }

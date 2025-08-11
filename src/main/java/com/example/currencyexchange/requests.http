@@ -25,3 +25,6 @@ baseCurrencyCode = EUR &
 targetCurrencyCode = JPY &
 rate = 171.97
 
+###
+GET http://localhost:8080/exchange?from=USD&to=JPY&amount=100
+
